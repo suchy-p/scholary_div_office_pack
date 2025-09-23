@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #dfd8e3;
+    margin: 0;
+    padding: 2rem;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    padding: 0.5rem;
+}
+
+h3 {
+    color: #fff;
+    text-align: center;
+}
+
+.button {
+    cursor: pointer;
+    background-color: #6a1b9a; /* Fioletowy kolor */
+    color: white;
+    padding: 0.5rem 1.5rem;
+
+    margin: 1rem auto; /* Margines górny i dolny w rem, auto na boki */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    display: block; /* Aby przyciski były w nowej linii */
+    text-decoration: none; /* Usunięcie podkreślenia */
+    width: 20rem;
+}
+
+.button:hover {
+    background-color: #4a148c; /* Ciemniejszy fiolet przy najechaniu */
+}
+
+.container {
+    border: 2px solid #6a1b9a; /* Obramowanie całej sekcji */
+    border-radius: 10px; /* Zaokrąglone rogi obramowania */
+    padding: 1rem; /* Padding wewnętrzny */
+    background-color: #dbd7de;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Cień dla efektu głębi */
+    width: 30rem;
+    margin: 2rem auto; /* Margines górny i dolny w rem, auto na boki */
