@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
-from django.views.generic import TemplateView
 from django.views import View
 
 
@@ -12,5 +11,5 @@ def main_view(request):
 
 
 class MainView(View):
-    def get (self, request):
+    def get(self, request):
         return render(request, 'main/main.html')
