@@ -14,4 +14,3 @@ def main_view(request):
 class MainView(View):
     def get (self, request):
         return render(request, 'main/main.html')
-    template_name = "main.html"

@@ -17,10 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from main import views
-from main.views import MainView, main_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
+    path('publications_registry/', include('publications_registry.urls')),
 ]
