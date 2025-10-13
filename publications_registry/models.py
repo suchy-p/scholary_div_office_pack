@@ -1,6 +1,9 @@
 from django.db import models
-
+# todo: user tracking for history logs; django-simple-history
+# todo: validator for issue [YYYY/NR (NR continuous)]
 # Create your models here.
+
+
 class Articles(models.Model):
 
     PUBLICATION_STATUS_CHOICES = {
@@ -46,3 +49,11 @@ class Articles(models.Model):
     created_by = "_"
     updated_at = models.DateTimeField(auto_now=True)
     updated_by = "_"
+
+
+class Users(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    login = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
+    email = models.EmailField()
