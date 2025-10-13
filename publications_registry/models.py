@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from . import custom_validators
 
 # Create your models here.
-
+# todo: Define models' relations.
 class Articles(models.Model):
 
     PUBLICATION_STATUS_CHOICES = {
@@ -47,6 +47,15 @@ class Articles(models.Model):
                                                 PUBLICATION_SUBMISSION_CHOICES,
                                             )
     # Any comments for article, like violation of code of ethics etc.
+    comments = models.TextField()
+
+
+class Authors(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100)
+    orcid = models.CharField(max_length=19, validators=[
+                                custom_validators.validate_orcid])
     comments = models.TextField()
 
 
