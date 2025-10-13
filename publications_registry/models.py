@@ -1,8 +1,8 @@
 from django.db import models
-# todo: user tracking for history logs; django-simple-history
-# todo: validator for issue [YYYY/NR (NR continuous)]
-# Create your models here.
+from django.contrib.auth.models import AbstractUser
+from . import custom_validators
 
+# Create your models here.
 
 class Articles(models.Model):
 
@@ -37,23 +37,27 @@ class Articles(models.Model):
                                       )
     # Issue in which the article will be published.
     issue = models.CharField(max_length=20,
-                             default=None,)
+                             default=None,
+                             validators=[
+                                 custom_validators.validate_issue_number]
+                             )
     # Method of article submission chosen by author.
     method_of_submission = models.CharField(max_length=30,
-                                            choices=PUBLICATION_SUBMISSION_CHOICES,
+                                            choices=
+                                                PUBLICATION_SUBMISSION_CHOICES,
                                             )
     # Any comments for article, like violation of code of ethics etc.
     comments = models.TextField()
     # Database record history logs.
-    created_at = models.DateTimeField(auto_now_add=True)
-    created_by = "_"
-    updated_at = models.DateTimeField(auto_now=True)
     updated_by = "_"
+    updated_at = models.DateTimeField(auto_now=True)
+    created_by = "_"
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
-class Users(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    login = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
-    email = models.EmailField()
+
+class Users(AbstractUser):
+    first_name = models.CharField(max_length=100, blank=False)
+    last_name = models.CharField(max_length=100, blank=False)
+    email = models.EmailField(max_length=100, blank=False)
+
