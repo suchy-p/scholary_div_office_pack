@@ -48,12 +48,6 @@ class Articles(models.Model):
                                             )
     # Any comments for article, like violation of code of ethics etc.
     comments = models.TextField()
-    # Database record history logs.
-    updated_by = "_"
-    updated_at = models.DateTimeField(auto_now=True)
-    created_by = "_"
-    created_at = models.DateTimeField(auto_now_add=True)
-
 
 
 class Users(AbstractUser):
