@@ -14,3 +14,17 @@ def validate_issue_number(issue_number):
                                              "RRRR/NR (nr ciągły)" )
 
     return regex_validator(issue)
+
+def validate_orcid(orcid):
+    """
+    Validates ORCID number. Checks numerical part only, omits URI prefixes.
+    """
+    # Regex for pattern 0000-1111-2222-3333
+    regex = r"([0-9]{4}\-){3}([0-9]{4})"
+    regex_validator = RegexValidator(regex=regex,
+                                     message="Niepoprawny format.\n"
+                                             "Wprowadź tylko cyforwą część "
+                                             "numeru ORCID, z myślnikami, "
+                                             "bez spacji.")
+
+    return regex_validator(orcid)
