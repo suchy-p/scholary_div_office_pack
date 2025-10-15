@@ -1,5 +1,6 @@
 from django.core.validators import RegexValidator
 
+
 def validate_issue_number(issue_number):
     """
     Validates that the issue number is valid.
@@ -24,7 +25,6 @@ def validate_orcid(orcid):
     regex_validator = RegexValidator(regex=regex,
                                      message="Niepoprawny format.\n"
                                              "Wprowadź tylko cyforwą część "
-                                             "numeru ORCID, z myślnikami, "
-                                             "bez spacji.")
+                                             "numeru ORCID.")
 
     return regex_validator(orcid)

@@ -1,30 +1,37 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 from . import custom_validators
 
+
 # Create your models here.
-# todo: Define models' relations.
-class Articles(models.Model):
-
-    PUBLICATION_STATUS_CHOICES = {
-        "SUBMITTED": "Zgłoszony",
-        "PRESELECTION": "Preselekcja",
-        "ANTIPLAGIARISM": "Antyplagiat",
-        "REVIEW": "Recenzje",
-        "OK_FOR_PRINT": "Skierowany do druku",
-        "WITHDRAWN_BY_AUTHOR": "Wycofany przez autora",
-        "WITHDRAWN_FROM_ONLINE_ED": "Wycofany z wydania online",
-        "REJECTED": "Odrzucony",
-    }
-
-    PUBLICATION_SUBMISSION_CHOICES = {
-        "OJS": "Open Journal System",
-        "EMAIL_EDITORIAL_BOARD": "Email redakcji",
-        "EMAIL_PRIVATE": "Email prywatny"
-    }
-
+class Author(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100)
+    orcid = models.CharField(max_length=19, validators=[
+        custom_validators.validate_orcid])
+    comments = models.TextField()
+
+
+class Article(models.Model):
+
+    PUBLICATION_STATUS_CHOICES = [
+        ("SUBMITTED", "Zgłoszony"),
+        ("PRESELECTION", "Preselekcja"),
+        ("ANTIPLAGIARISM", "Antyplagiat"),
+        ("REVIEW", "Recenzje"),
+        ("OK_FOR_PRINT", "Skierowany do druku"),
+        ("WITHDRAWN_BY_AUTHOR", "Wycofany przez autora"),
+        ("WITHDRAWN_FROM_ONLINE_ED", "Wycofany z wydania online"),
+        ("REJECTED", "Odrzucony"),
+    ]
+
+    PUBLICATION_SUBMISSION_CHOICES = [
+        ("OJS", "Open Journal System"),
+        ("EMAIL_EDITORIAL_BOARD", "Email redakcji"),
+        ("EMAIL_PRIVATE", "Email prywatny"),
+    ]
+
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
     article_title = models.CharField(max_length=200)
     # Signing a license agreement allowing publication.
     license_agreement = models.BooleanField(default=False)
@@ -50,17 +57,24 @@ class Articles(models.Model):
     comments = models.TextField()
 
 
-class Authors(models.Model):
+class Reviewer(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     orcid = models.CharField(max_length=19, validators=[
-                                custom_validators.validate_orcid])
+        custom_validators.validate_orcid])
     comments = models.TextField()
 
 
-class Users(AbstractUser):
-    first_name = models.CharField(max_length=100, blank=False)
-    last_name = models.CharField(max_length=100, blank=False)
-    email = models.EmailField(max_length=100, blank=False)
+class ArticleReview(models.Model):
+    RECOMMENDATION_CHOICES = [
+        ("ACCEPT", "Przyjąć do druku"),
+        ("ACCEPT_CONDITIONALLY", "Przyjąć do druku po poprawkach"),
+        ("REJECT", "Odrzucić"),
+    ]
 
+    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
+    article_title = models.OneToOneField(Article, on_delete=models.CASCADE)
+    recommendation = models.CharField(max_length=30, choices=
+        RECOMMENDATION_CHOICES)
+    comments = models.TextField()
