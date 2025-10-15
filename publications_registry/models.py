@@ -4,14 +4,18 @@ from . import custom_validators
 
 # Create your models here.
 class Author(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100)
+    first_name = models.CharField(max_length=100, verbose_name="Imię",)
+    last_name = models.CharField(max_length=100, verbose_name="Nazwisko",)
+    email = models.EmailField(max_length=100,)
     orcid = models.CharField(max_length=19,
                              unique=True,
-                             validators=[custom_validators.validate_orcid]
+                             validators=[custom_validators.validate_orcid],
                              )
-    comments = models.TextField(blank=True)
+    comments = models.TextField(blank=True, verbose_name="Uwagi",)
+
+    class Meta:
+        verbose_name = "Autor"
+        verbose_name_plural = "Autorzy"
 
     def __str__(self):
         return f"{self.last_name} {self.first_name}"
@@ -36,46 +40,61 @@ class Article(models.Model):
         ("EMAIL_PRIVATE", "Email prywatny"),
     ]
 
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, blank=False)
-    article_title = models.CharField(max_length=200, blank=False)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE,
+                               verbose_name="Autor",
+                               )
+    article_title = models.CharField(max_length=200, verbose_name="Tytuł",)
     # Signing a license agreement allowing publication.
-    license_agreement = models.BooleanField(default=False)
+    license_agreement = models.BooleanField(default=False,
+                                            verbose_name="Umowa licencyjna",
+                                            )
     # Check for plagiarism; True if check commited, regardless of result.
-    antiplagiarism_check = models.BooleanField(default=False)
+    antiplagiarism_check = models.BooleanField(default=False,
+                                               verbose_name="Antyplagiat",
+                                               )
     # Status of publication process.
     article_status = models.CharField(max_length=30,
                                       choices=PUBLICATION_STATUS_CHOICES,
                                       default="SUBMITTED",
+                                      verbose_name="Status artykułu",
                                       )
     # Issue in which the article will be published.
     issue = models.CharField(max_length=20,
                              default=None,
                              blank=True,
                              validators=[
-                                 custom_validators.validate_issue_number]
+                                 custom_validators.validate_issue_number],
+                             verbose_name="Numer",
                              )
     # Method of article submission chosen by author.
     method_of_submission = models.CharField(max_length=30,
-                                            blank=False,
                                             choices=
                                                 PUBLICATION_SUBMISSION_CHOICES,
+                                            verbose_name="Sposób zgłoszenia",
                                             )
     # Any comments for article, like violation of code of ethics etc.
-    comments = models.TextField()
+    comments = models.TextField(blank=True, verbose_name="Uwagi",)
+
+    class Meta:
+        verbose_name = "Artykuł"
+        verbose_name_plural = "Artykuły"
 
     def __str__(self):
         return f"{self.article_title}"
 
 
 class Reviewer(models.Model):
-    first_name = models.CharField(max_length=100, blank=False)
-    last_name = models.CharField(max_length=100, blank=False)
-    email = models.EmailField(max_length=100, blank=False)
+    first_name = models.CharField(max_length=100, verbose_name="Imię",)
+    last_name = models.CharField(max_length=100, verbose_name="Nazwisko",)
+    email = models.EmailField(max_length=100),
     orcid = models.CharField(max_length=19,
-                             blank=False,
-                             validators=[custom_validators.validate_orcid]
+                             validators=[custom_validators.validate_orcid],
                              )
-    comments = models.TextField()
+    comments = models.TextField(blank=True, verbose_name="Uwagi",)
+
+    class Meta:
+        verbose_name = "Recnzent"
+        verbose_name_plural = "Recenzenci"
 
     def __str__(self):
         return f"{self.last_name} {self.first_name}"
@@ -88,13 +107,24 @@ class ArticleReview(models.Model):
         ("REJECT", "Odrzucić"),
     ]
 
-    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    article_title = models.OneToOneField(Article, on_delete=models.CASCADE)
-    recommendation = models.CharField(max_length=30, choices=
-        RECOMMENDATION_CHOICES)
-    comments = models.TextField()
+    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE,
+                                 verbose_name="Recenznet",
+                                 )
+    author = models.ForeignKey(Author, on_delete=models.CASCADE,
+                               verbose_name="Autor",
+                               )
+    article_title = models.OneToOneField(Article, on_delete=models.CASCADE,
+                                         verbose_name="Tytuł",
+                                         )
+    recommendation = models.CharField(max_length=30,
+                                      choices=RECOMMENDATION_CHOICES,
+                                      verbose_name="Ocena",
+                                      )
+    comments = models.TextField(blank=True, verbose_name="Uwagi",)
+
+    class Meta:
+        verbose_name = "Recenzja"
+        verbose_name_plural = "Recenzje"
 
     def __str__(self):
-        return f"{self.reviewer}, rec. {self.author}, {self.article_title}"
+        return f"{self.reviewer}, rec. {self.article_title}"
