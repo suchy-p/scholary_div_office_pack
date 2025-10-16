@@ -6,8 +6,9 @@ from . import custom_validators
 class Author(models.Model):
     first_name = models.CharField(max_length=100, verbose_name="Imię",)
     last_name = models.CharField(max_length=100, verbose_name="Nazwisko",)
-    email = models.EmailField(max_length=100,)
+    email = models.EmailField(max_length=100, unique=True)
     orcid = models.CharField(max_length=19,
+                             blank=True,
                              unique=True,
                              validators=[custom_validators.validate_orcid],
                              )
@@ -43,7 +44,10 @@ class Article(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE,
                                verbose_name="Autor",
                                )
-    article_title = models.CharField(max_length=200, verbose_name="Tytuł",)
+    article_title = models.CharField(max_length=200,
+                                     unique=True,
+                                     verbose_name="Tytuł",
+                                     )
     # Signing a license agreement allowing publication.
     license_agreement = models.BooleanField(default=False,
                                             verbose_name="Umowa licencyjna",
@@ -86,7 +90,7 @@ class Article(models.Model):
 class Reviewer(models.Model):
     first_name = models.CharField(max_length=100, verbose_name="Imię",)
     last_name = models.CharField(max_length=100, verbose_name="Nazwisko",)
-    email = models.EmailField(max_length=100),
+    email = models.EmailField(max_length=100, unique=True),
     orcid = models.CharField(max_length=19,
                              validators=[custom_validators.validate_orcid],
                              )
