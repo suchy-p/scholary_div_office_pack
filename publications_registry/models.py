@@ -90,7 +90,7 @@ class Article(models.Model):
 class Reviewer(models.Model):
     first_name = models.CharField(max_length=100, verbose_name="Imię",)
     last_name = models.CharField(max_length=100, verbose_name="Nazwisko",)
-    email = models.EmailField(max_length=100, unique=True),
+    email = models.EmailField(max_length=100, unique=True)
     orcid = models.CharField(max_length=19,
                              validators=[custom_validators.validate_orcid],
                              )
@@ -114,12 +114,13 @@ class ArticleReview(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE,
                                  verbose_name="Recenznet",
                                  )
-    author = models.ForeignKey(Author, on_delete=models.CASCADE,
-                               verbose_name="Autor",
-                               )
     article_title = models.OneToOneField(Article, on_delete=models.CASCADE,
                                          verbose_name="Tytuł",
                                          )
+    author = models.ForeignKey(Author, on_delete=models.CASCADE,
+                               verbose_name="Autor",
+                               null=True,
+                               )
     recommendation = models.CharField(max_length=30,
                                       choices=RECOMMENDATION_CHOICES,
                                       verbose_name="Ocena",
