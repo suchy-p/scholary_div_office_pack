@@ -1,6 +1,6 @@
 from django.contrib import admin
 from publications_registry import models
-#todo: customize rest od admin classes
+
 
 @admin.register(models.Author)
 class AuthorAdmin(admin.ModelAdmin):

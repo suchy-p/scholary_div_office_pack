@@ -18,9 +18,10 @@ class Author(models.Model):
     class Meta:
         verbose_name = "Autor"
         verbose_name_plural = "Autorzy"
+        ordering = ("last_name", "first_name",)
 
     def __str__(self):
-        return f"{self.last_name} {self.first_name}"
+        return f"{self.last_name}, {self.first_name}"
 
 
 class Article(models.Model):
@@ -100,9 +101,10 @@ class Reviewer(models.Model):
     class Meta:
         verbose_name = "Recenzent"
         verbose_name_plural = "Recenzenci"
+        ordering = ("last_name", "first_name",)
 
     def __str__(self):
-        return f"{self.last_name} {self.first_name}"
+        return f"{self.last_name}, {self.first_name}"
 
 
 class ArticleReview(models.Model):
