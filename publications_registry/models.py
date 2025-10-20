@@ -1,6 +1,7 @@
 from django.db import models
 from . import custom_validators
 
+#todo: in Author model add ordering in Meta class
 
 # Create your models here.
 class Author(models.Model):
@@ -97,7 +98,7 @@ class Reviewer(models.Model):
     comments = models.TextField(blank=True, verbose_name="Uwagi",)
 
     class Meta:
-        verbose_name = "Recnzent"
+        verbose_name = "Recenzent"
         verbose_name_plural = "Recenzenci"
 
     def __str__(self):

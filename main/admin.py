@@ -1,6 +1,6 @@
 from django.contrib import admin
 from publications_registry import models
-
+#todo: customize rest od admin classes
 
 @admin.register(models.Author)
 class AuthorAdmin(admin.ModelAdmin):
@@ -10,9 +10,9 @@ class AuthorAdmin(admin.ModelAdmin):
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ("article_title", "author", "article_status", "issue",)
 
-
+@admin.register(models.Reviewer)
 class ReviewerAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("last_name", "first_name", "orcid", "email",)
 
 
 class ArticleReviewAdmin(admin.ModelAdmin):
@@ -22,5 +22,5 @@ class ArticleReviewAdmin(admin.ModelAdmin):
 # Register your models here.
 #admin.site.register(models.Author)
 #admin.site.register(models.Article)
-admin.site.register(models.Reviewer)
+#admin.site.register(models.Reviewer)
 admin.site.register(models.ArticleReview)
