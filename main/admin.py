@@ -14,13 +14,12 @@ class ArticleAdmin(admin.ModelAdmin):
 class ReviewerAdmin(admin.ModelAdmin):
     list_display = ("last_name", "first_name", "orcid", "email",)
 
-
+@admin.register(models.ArticleReview)
 class ArticleReviewAdmin(admin.ModelAdmin):
-    pass
-
+    list_display = ("reviewer", "article_title", "author", "recommendation")
 
 # Register your models here.
 #admin.site.register(models.Author)
 #admin.site.register(models.Article)
 #admin.site.register(models.Reviewer)
-admin.site.register(models.ArticleReview)
+#admin.site.register(models.ArticleReview)
