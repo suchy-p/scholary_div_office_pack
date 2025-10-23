@@ -12,9 +12,10 @@ def validate_issue_number(issue_number):
     regex_validator = RegexValidator(regex=regex,
                                      message="Niepoprawny format.\n"
                                              "Wprowadź zgodnie ze wzorem:\n"
-                                             "RRRR/NR (nr ciągły)" )
+                                             "RRRR/NR (nr ciągły)")
 
     return regex_validator(issue)
+
 
 def validate_orcid(orcid):
     """

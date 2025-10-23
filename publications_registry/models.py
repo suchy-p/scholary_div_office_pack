@@ -1,7 +1,6 @@
 from django.db import models
 from . import custom_validators
 
-#todo: in Author model add ordering in Meta class
 
 # Create your models here.
 class Author(models.Model):
@@ -75,7 +74,7 @@ class Article(models.Model):
     # Method of article submission chosen by author.
     method_of_submission = models.CharField(max_length=30,
                                             choices=
-                                                PUBLICATION_SUBMISSION_CHOICES,
+                                            PUBLICATION_SUBMISSION_CHOICES,
                                             verbose_name="Sposób zgłoszenia",
                                             )
     # Any comments for article, like violation of code of ethics etc.

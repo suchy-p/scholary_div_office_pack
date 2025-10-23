@@ -6,20 +6,23 @@ from publications_registry import models
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ("last_name", "first_name", "orcid", "email",)
 
+
 @admin.register(models.Article)
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ("article_title", "author", "article_status", "issue",)
 
+
 @admin.register(models.Reviewer)
 class ReviewerAdmin(admin.ModelAdmin):
     list_display = ("last_name", "first_name", "orcid", "email",)
+
 
 @admin.register(models.ArticleReview)
 class ArticleReviewAdmin(admin.ModelAdmin):
     list_display = ("reviewer", "article_title", "author", "recommendation")
 
 # Register your models here.
-#admin.site.register(models.Author)
-#admin.site.register(models.Article)
-#admin.site.register(models.Reviewer)
-#admin.site.register(models.ArticleReview)
+# admin.site.register(models.Author)
+# admin.site.register(models.Article)
+# admin.site.register(models.Reviewer)
+# admin.site.register(models.ArticleReview)
