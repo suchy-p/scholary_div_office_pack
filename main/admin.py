@@ -10,6 +10,7 @@ class AuthorAdmin(admin.ModelAdmin):
 @admin.register(models.Article)
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ("article_title", "author", "article_status", "issue",)
+    list_filter = ("issue", "article_status", )
 
 
 @admin.register(models.Reviewer)
