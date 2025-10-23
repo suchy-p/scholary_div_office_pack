@@ -11,6 +11,8 @@ class AuthorAdmin(admin.ModelAdmin):
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ("article_title", "author", "article_status", "issue",)
     list_filter = ("issue", "article_status", )
+    search_fields = ("article_title","author__last_name", "author__first_name",
+                     )
 
 
 @admin.register(models.Reviewer)
