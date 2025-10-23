@@ -65,8 +65,7 @@ class Article(models.Model):
                                       )
     # Issue in which the article will be published.
     issue = models.CharField(max_length=20,
-                             default=None,
-                             blank=True,
+                             default="Nieprzydzielony",
                              validators=[
                                  custom_validators.validate_issue_number],
                              verbose_name="Numer",
