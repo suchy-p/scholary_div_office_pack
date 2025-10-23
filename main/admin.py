@@ -5,6 +5,7 @@ from publications_registry import models
 @admin.register(models.Author)
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ("last_name", "first_name", "orcid", "email",)
+    search_fields = ("last_name", "first_name", "orcid",)
 
 
 @admin.register(models.Article)
